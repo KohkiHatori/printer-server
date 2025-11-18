@@ -191,8 +191,8 @@ After the Pi reboots and is online, SSH back in to install and run the server.
 
 ### 1. Clone Your Project
 ```bash
-git clone https://github.com/KohkiHatori/web-bluetooth.git
-cd web-bluetooth/node-server
+git clone https://github.com/KohkiHatori/printer-server.git
+cd printer-server
 ```
 
 ### 2. Install Dependencies
@@ -247,7 +247,7 @@ sudo chmod +x /usr/local/bin/cloudflared
 ### 2. Start the Tunnel
 1.  In one SSH session, make sure your Node.js server is running:
     ```bash
-    cd ~/web-bluetooth/node-server
+    cd ~/printer-server
     npm run dev
     ```
 2.  Open a **second SSH session** to your Raspberry Pi.
@@ -267,7 +267,7 @@ To make the server and tunnel run automatically every time the Pi boots, we will
 The `dev` command is for development. For a service, we should run the compiled JavaScript directly.
 ```bash
 # Run this once from your project directory
-cd ~/web-bluetooth/node-server
+cd ~/printer-server
 npm run build
 ```
 
@@ -285,8 +285,8 @@ npm run build
     [Service]
     Type=simple
     User=admin
-    WorkingDirectory=/home/admin/web-bluetooth/node-server
-    ExecStart=/home/admin/.nvm/versions/node/v22.21.1/bin/node /home/admin/web-bluetooth/node-server/dist/server.js
+    WorkingDirectory=/home/admin/printer-server
+    ExecStart=/home/admin/.nvm/versions/node/v22.21.1/bin/node /home/admin/printer-server/dist/server.js
     Restart=on-failure
     RestartSec=10
     StandardOutput=journal

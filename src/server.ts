@@ -110,16 +110,20 @@ app.post("/api/print/qr", async (req, res) => {
 // Print barcode endpoint
 app.post("/api/print/barcode", async (req, res) => {
   try {
-    const { data, type = 'CODE128' } = req.body;
+    const { data, type = 'CODE128', width = 2 } = req.body;
 
     if (!data) {
       return res.status(400).json({ success: false, error: 'Barcode data is required' });
     }
 
+    if (width < 2 || width > 6) {
+      return res.status(400).json({ success: false, error: 'Barcode width must be between 2 and 6' });
+    }
+
     // GS h - Set Barcode Height (e.g., 50 dots)
     const setHeight = Buffer.from([0x1d, 0x68, 50]);
-    // GS w - Set Barcode Width (e.g., 2 dots)
-    const setWidth = Buffer.from([0x1d, 0x77, 2]);
+    // GS w - Set Barcode Width
+    const setWidth = Buffer.from([0x1d, 0x77, width]);
     // GS H - Set Human-Readable-Interface (HRI) font position (2 = below)
     const setHri = Buffer.from([0x1d, 0x48, 2]);
 
