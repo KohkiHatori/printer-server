@@ -159,6 +159,7 @@ app.post("/api/print/barcode", async (req, res) => {
       setHri,
       printBarcode,
       Buffer.from('\n'), // Add a newline for spacing
+      Buffer.from([0x1b, 0x64, 0x03]), // Feed paper 3 lines
     ]);
 
     await printer.write(commands);
